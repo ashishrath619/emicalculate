@@ -9,9 +9,9 @@ import {
   FormControl,
   Form,
 } from "react-bootstrap";
-import { AnyTxtRecord } from "dns";
 function Home() {
   const [valueHome, setValueHome] = useState<any>(10);
+  const [loanTermValu, setLoanTermValu] = useState("");
 
   const [PercentValue, setPercentValue] = useState<any>(100000000);
   const [DownpaymentMaxvalue, setDownpaymentMaxvalue] =
@@ -26,14 +26,14 @@ function Home() {
     setvalueDown(parseInt(e.target.value));
     console.log("value", typeof e.target.value);
     setvalueDownprice(parseInt(e.target.value));
-    var cal = (valueHome / e.target.value) * 100;
+    var cal = (e.target.value / valueHome) * 100;
     console.log(cal);
 
-    if (parseInt(valueDown) > parseInt(valueHome)) {
-      setvalueDownpercent(0);
-    } else {
-      setvalueDownpercent((parseInt(valueDown) * 100) / parseInt(valueDown));
-    }
+    // if (parseInt(valueDown) > parseInt(valueHome)) {
+    //   setvalueDownpercent(0);
+    // } else {
+    //   setvalueDownpercent((parseInt(valueDown) * 100) / parseInt(valueDown));
+    // }
     setvalueDownpercent(cal);
   };
 
@@ -43,9 +43,17 @@ function Home() {
     if (parseInt(valueDown) > parseInt(valueHome)) {
       setvalueDownpercent(0);
     } else {
-      setvalueDownpercent((parseInt(valueDown) * 100) / parseInt(valueHome));
+      setvalueDownpercent((parseInt(valueHome) * 100) / parseInt(valueDown));
     }
     // setvalueDownpercent(e.target.value / valueDown);
+  };
+  //   var calculateInterest = function (total: any, year: any, rate: any) {
+
+  //     return parseFloat((total * Math.pow(interest, year)).toFixed(4));
+  //   };
+
+  const handleLoanyearChange = (e: any) => {
+    setLoanTermValu(e.target.value);
   };
 
   return (
@@ -119,7 +127,11 @@ function Home() {
             <Form.Group controlId="formFile" className="mb-3">
               <Form.Label>Loan Term</Form.Label>
               <InputGroup className="mb-3">
-                <Form.Select aria-label="Default select example">
+                <Form.Select
+                  aria-label="Default select example"
+                  value={loanTermValu}
+                  onChange={handleLoanyearChange}
+                >
                   <option value="10 years">10 years</option>
                   <option value="20 years">20 years</option>
                   <option value="30 years">30 years</option>
@@ -132,7 +144,7 @@ function Home() {
               <Form.Label>Interest rate</Form.Label>
               <InputGroup className="mb-3">
                 <FormControl
-                  placeholder="Username"
+                  placeholder="rate"
                   aria-label="Username"
                   aria-describedby="basic-addon1"
                 />
