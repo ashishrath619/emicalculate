@@ -2,6 +2,9 @@
   text-align: center;
 }
 
+.check{
+  border: 2px solid red;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
